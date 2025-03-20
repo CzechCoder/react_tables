@@ -13,7 +13,6 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 export async function fetchRevenue() {
   try {
-    console.log("Fetching revenue data...");
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue[]>`SELECT * FROM revenue`;
@@ -116,8 +115,6 @@ export async function fetchFilteredInvoices(
 
   const sortField = assignColumnName(sort.split("_")[0]);
   const sortDirection = searchParams?.sort?.split("_")[1] || "desc";
-
-  console.log(searchParams);
 
   const currentPage = Number(page) || 1;
 

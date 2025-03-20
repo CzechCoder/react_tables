@@ -8,26 +8,31 @@ import Box from "@mui/material/Box";
 import dayjs from "dayjs";
 
 import type { InvoicesTable } from "@/app/lib/definitions";
+import { formatCurrency } from "@/app/lib/utils";
+import InvoiceStatus from "./invoices/status";
 
 const columns: GridColDef<InvoicesTable>[] = [
   {
     field: "name",
     headerName: "Customer",
     width: 150,
-    editable: true,
   },
   {
     field: "email",
     headerName: "Email",
     width: 200,
-    editable: true,
   },
   {
     field: "amount",
     headerName: "Amount",
     type: "number",
     width: 110,
-    editable: true,
+    valueGetter: (value) => {
+      if (!value) {
+        return value;
+      }
+      return formatCurrency(value);
+    },
   },
   {
     field: "date",
@@ -41,9 +46,9 @@ const columns: GridColDef<InvoicesTable>[] = [
   {
     field: "status",
     headerName: "Status",
-    type: "number",
+    type: "string",
     width: 110,
-    editable: true,
+    renderCell: (params) => <InvoiceStatus status={params.value} />,
   },
 ];
 
@@ -81,7 +86,6 @@ export const MuiDataGrid = ({
   };
 
   const handleSortModelChange = (sortModel: GridSortModel) => {
-    console.log(sortModel);
     const params = new URLSearchParams(searchParams);
     if (sortModel.length === 0) {
       params.delete("sort");
@@ -104,7 +108,7 @@ export const MuiDataGrid = ({
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
         onPaginationModelChange={handleChangePagination}
-        checkboxSelection
+        disableColumnFilter
         disableRowSelectionOnClick
       />
     </Box>

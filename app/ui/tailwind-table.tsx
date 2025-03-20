@@ -15,7 +15,6 @@ export default async function TailwindTable({
     sort?: string;
   };
 }) {
-  console.log(searchParams);
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -93,6 +92,7 @@ export default async function TailwindTable({
                     {invoice.email}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
+                    {/* use this in other tables as well */}
                     {formatCurrency(invoice.amount)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">

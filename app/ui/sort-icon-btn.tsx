@@ -52,10 +52,7 @@ export const SortIconBtn: FC<SortIconBtnProps> = ({ field, searchParams }) => {
       onClick={handleSortModelChange}
     >
       {isMatchingField && sortOrder === "desc" ? (
-        <ArrowDownwardIcon
-          fontSize="small"
-          color={isMatchingField ? "primary" : "disabled"}
-        />
+        <ArrowDownwardIcon fontSize="small" color="primary" />
       ) : (
         <ArrowUpwardIcon
           fontSize="small"
