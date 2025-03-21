@@ -97,7 +97,7 @@ export const MuiDataGrid = ({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <div className="mt-6 w-full">
       <DataGrid
         rows={data}
         columns={columns}
@@ -111,6 +111,6 @@ export const MuiDataGrid = ({
         disableColumnFilter
         disableRowSelectionOnClick
       />
-    </Box>
+    </div>
   );
 };

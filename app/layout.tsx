@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import { cn } from "@/lib/utils";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -29,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`antialiased ${roboto.variable}`}>
+      <body className={cn(`antialiased ${roboto.variable}`)}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
