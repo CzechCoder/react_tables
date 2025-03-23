@@ -54,27 +54,24 @@ export default async function TailwindTable({
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                   Customer
-                  <SortIconBtn field="name" searchParams={searchParams} />
+                  <SortIconBtn field="name" />
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Email
-                  <SortIconBtn field="email" searchParams={searchParams} />
+                  <SortIconBtn field="email" />
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Amount
-                  <SortIconBtn field="amount" searchParams={searchParams} />
+                  <SortIconBtn field="amount" />
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Date
-                  <SortIconBtn field="date" searchParams={searchParams} />
+                  <SortIconBtn field="date" />
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Status
-                  <SortIconBtn field="status" searchParams={searchParams} />
+                  <SortIconBtn field="status" />
                 </th>
-                {/* <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Edit</span>
-                </th> */}
               </tr>
             </thead>
             <tbody className="bg-white">
@@ -92,7 +89,6 @@ export default async function TailwindTable({
                     {invoice.email}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {/* use this in other tables as well */}
                     {formatCurrency(invoice.amount)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
@@ -101,12 +97,6 @@ export default async function TailwindTable({
                   <td className="whitespace-nowrap px-3 py-3">
                     <InvoiceStatus status={invoice.status} />
                   </td>
-                  {/* <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} />
-                    </div>
-                  </td> */}
                 </tr>
               ))}
             </tbody>

@@ -1,10 +1,21 @@
 "use client";
 
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import clsx from "clsx";
-import Link from "next/link";
-import { generatePagination } from "@/app/lib/utils";
+import { JSX } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { generatePagination } from "@/app/lib/utils";
+import Link from "next/link";
+import clsx from "clsx";
+
+const iconMapping: { [key: string]: JSX.Element } = {
+  left: <ArrowBackIcon className="w-4" />,
+  right: <ArrowForwardIcon className="w-4" />,
+  firstPage: <FirstPageIcon className="w-4" />,
+  lastPage: <LastPageIcon className="w-4" />,
+};
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
@@ -21,7 +32,12 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-      <div className="inline-flex">
+      <div className="inline-flex gap-2">
+        <PaginationArrow
+          direction="firstPage"
+          href={createPageURL(1)}
+          isDisabled={currentPage <= 1}
+        />
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
@@ -54,6 +70,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           href={createPageURL(currentPage + 1)}
           isDisabled={currentPage >= totalPages}
         />
+        <PaginationArrow
+          direction="lastPage"
+          href={createPageURL(totalPages)}
+          isDisabled={currentPage >= totalPages}
+        />
       </div>
     </>
   );
@@ -75,7 +96,7 @@ function PaginationNumber({
     {
       "rounded-l-md": position === "first" || position === "single",
       "rounded-r-md": position === "last" || position === "single",
-      "z-10 bg-blue-600 border-blue-600 text-white": isActive,
+      "z-10 bg-purple-600 border-purple-600 text-white": isActive,
       "hover:bg-gray-100": !isActive && position !== "middle",
       "text-gray-300": position === "middle",
     }
@@ -96,7 +117,7 @@ function PaginationArrow({
   isDisabled,
 }: {
   href: string;
-  direction: "left" | "right";
+  direction: "left" | "right" | "firstPage" | "lastPage";
   isDisabled?: boolean;
 }) {
   const className = clsx(
@@ -104,23 +125,14 @@ function PaginationArrow({
     {
       "pointer-events-none text-gray-300": isDisabled,
       "hover:bg-gray-100": !isDisabled,
-      "mr-2 md:mr-4": direction === "left",
-      "ml-2 md:ml-4": direction === "right",
     }
   );
 
-  const icon =
-    direction === "left" ? (
-      <ArrowLeftIcon className="w-4" />
-    ) : (
-      <ArrowRightIcon className="w-4" />
-    );
-
   return isDisabled ? (
-    <div className={className}>{icon}</div>
+    <div className={className}> {iconMapping[direction]}</div>
   ) : (
     <Link className={className} href={href}>
-      {icon}
+      {iconMapping[direction]}
     </Link>
   );
 }

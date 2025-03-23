@@ -1,27 +1,24 @@
 "use client";
 
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, type FC } from "react";
+import { type FC } from "react";
+import { useSearchParams } from "next/navigation";
 
 type SortIconBtnProps = {
   field: string;
-  searchParams?: {
-    query?: string;
-    page?: string;
-    sort?: string;
-  };
 };
 
-export const SortIconBtn: FC<SortIconBtnProps> = ({ field, searchParams }) => {
+export const SortIconBtn: FC<SortIconBtnProps> = ({ field }) => {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const sort = searchParams?.get("sort") || "";
 
-  const sortField = searchParams?.sort?.split("_")[0] || "";
-  const sortOrder = searchParams?.sort?.split("_")[1];
+  const sortField = sort.split("_")[0];
+  const sortOrder = sort.split("_")[1];
   const isMatchingField = sortField === field;
 
   const handleSortModelChange = () => {
@@ -38,8 +35,6 @@ export const SortIconBtn: FC<SortIconBtnProps> = ({ field, searchParams }) => {
     } else {
       params.set("sort", `${field}_asc`);
     }
-
-    console.log(params);
 
     router.push(`${pathname}?${params.toString()}`);
   };

@@ -1,12 +1,13 @@
-import Pagination from "@/app/ui/invoices/pagination";
-import Search from "@/app/ui/search";
-import { lusitana } from "@/app/ui/fonts";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
-import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
 import { Metadata } from "next";
-import { ShadCnTable } from "../ui/shadcn-table";
-import { ShadCnPayment } from "../lib/definitions";
+
+import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
+import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
+import Pagination from "@/app/ui/invoices/pagination";
+import { InvoicesTable } from "@/app/lib/definitions";
+import { ShadCnTable } from "@/app/ui/shadcn-table";
+import { lusitana } from "@/app/ui/fonts";
+import Search from "@/app/ui/search";
 
 export const metadata: Metadata = {
   title: "ShadCN",
@@ -23,16 +24,7 @@ export default async function Page(props: {
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = (await fetchInvoicesPages(query)).totalPages;
 
-  const invoices = await fetchFilteredInvoices(searchParams);
-
-  const data: ShadCnPayment[] = [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-  ];
+  const invoices: InvoicesTable[] = await fetchFilteredInvoices(searchParams);
 
   return (
     <div className="w-full">
@@ -43,7 +35,7 @@ export default async function Page(props: {
         <Search placeholder="Search invoices..." />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <ShadCnTable data={data} />
+        <ShadCnTable data={invoices} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />
