@@ -1,5 +1,3 @@
-// This file contains type definitions for the data.
-
 export type User = {
   id: string;
   name: string;

@@ -2,14 +2,32 @@
 
 import * as React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridPagination,
+  GridSortModel,
+} from "@mui/x-data-grid";
+import {
+  TablePagination,
+  IconButton,
+  TablePaginationProps,
+} from "@mui/material";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import LastPageIcon from "@mui/icons-material/LastPage";
 import { useRouter } from "next/navigation";
-import Box from "@mui/material/Box";
 import dayjs from "dayjs";
+import MuiPagination from "@mui/material/Pagination";
 
 import type { InvoicesTable } from "@/app/lib/definitions";
 import { formatCurrency } from "@/app/lib/utils";
-import InvoiceStatus from "./invoices/status";
+import InvoiceStatus from "@/app/ui/invoices/status";
+
+interface CustomPaginationProps {
+  currentPage: number;
+  rowCount: number;
+  onPageChange: (page: number) => void;
+}
 
 const columns: GridColDef<InvoicesTable>[] = [
   {
@@ -52,6 +70,58 @@ const columns: GridColDef<InvoicesTable>[] = [
   },
 ];
 
+// function CustomPagination({
+//   currentPage,
+//   rowCount,
+//   onPageChange,
+// }: CustomPaginationProps) {
+//   const handlePageChange = () => {
+//     console.log("page changed");
+//   };
+//   return (
+//     <TablePagination
+//       component="div"
+//       count={rowCount}
+//       page={currentPage}
+//       rowsPerPage={6}
+//       rowsPerPageOptions={[]}
+//       onPageChange={handlePageChange}
+//       ActionsComponent={(subProps) => (
+//         <div className="flex items-center space-x-2">
+//           <IconButton onClick={handlePageChange} disabled={currentPage === 0}>
+//             <FirstPageIcon />
+//           </IconButton>
+//           <IconButton
+//             onClick={handlePageChange}
+//             disabled={currentPage >= Math.ceil(rowCount / 6) - 1}
+//           >
+//             <LastPageIcon />
+//           </IconButton>
+//         </div>
+//       )}
+//     />
+//   );
+// }
+
+function CustomPagination({
+  currentPage,
+  rowCount,
+  onPageChange,
+}: CustomPaginationProps) {
+  console.log("current page: " + currentPage);
+  return (
+    <MuiPagination
+      color="primary"
+      count={Math.ceil(rowCount / 6)}
+      page={currentPage}
+      onChange={(_, newPage) => {
+        console.log("custom pag: " + newPage);
+        onPageChange(newPage);
+      }}
+    />
+  );
+}
+
 export const MuiDataGrid = ({
   data,
   rowCount,
@@ -64,7 +134,8 @@ export const MuiDataGrid = ({
   const currentPage = Number(searchParams.get("page")) || 1;
   const router = useRouter();
 
-  const changePage = (pageNumber: number | string) => {
+  const changePage = (pageNumber: number) => {
+    console.log(pageNumber);
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     router.push(`${pathname}?${params.toString()}`);
@@ -102,7 +173,7 @@ export const MuiDataGrid = ({
         rows={data}
         columns={columns}
         rowCount={rowCount}
-        pageSizeOptions={[6]}
+        pageSizeOptions={[]}
         paginationModel={paginationModel}
         paginationMode="server"
         sortingMode="server"
@@ -110,6 +181,20 @@ export const MuiDataGrid = ({
         onPaginationModelChange={handleChangePagination}
         disableColumnFilter
         disableRowSelectionOnClick
+        pagination
+        slots={{ pagination: CustomPagination }}
+        slotProps={{
+          pagination: {
+            currentPage,
+            rowCount,
+            onPageChange: changePage,
+          },
+        }}
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: paginationModel.pageSize },
+          },
+        }}
       />
     </div>
   );
