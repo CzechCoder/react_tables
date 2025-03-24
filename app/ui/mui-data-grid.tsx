@@ -2,19 +2,7 @@
 
 import * as React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import {
-  DataGrid,
-  GridColDef,
-  GridPagination,
-  GridSortModel,
-} from "@mui/x-data-grid";
-import {
-  TablePagination,
-  IconButton,
-  TablePaginationProps,
-} from "@mui/material";
-import FirstPageIcon from "@mui/icons-material/FirstPage";
-import LastPageIcon from "@mui/icons-material/LastPage";
+import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import MuiPagination from "@mui/material/Pagination";
@@ -22,12 +10,7 @@ import MuiPagination from "@mui/material/Pagination";
 import type { InvoicesTable } from "@/app/lib/definitions";
 import { formatCurrency } from "@/app/lib/utils";
 import InvoiceStatus from "@/app/ui/invoices/status";
-
-interface CustomPaginationProps {
-  currentPage: number;
-  rowCount: number;
-  onPageChange: (page: number) => void;
-}
+import { TablePaginationProps } from "@mui/material";
 
 const columns: GridColDef<InvoicesTable>[] = [
   {
@@ -70,53 +53,17 @@ const columns: GridColDef<InvoicesTable>[] = [
   },
 ];
 
-// function CustomPagination({
-//   currentPage,
-//   rowCount,
-//   onPageChange,
-// }: CustomPaginationProps) {
-//   const handlePageChange = () => {
-//     console.log("page changed");
-//   };
-//   return (
-//     <TablePagination
-//       component="div"
-//       count={rowCount}
-//       page={currentPage}
-//       rowsPerPage={6}
-//       rowsPerPageOptions={[]}
-//       onPageChange={handlePageChange}
-//       ActionsComponent={(subProps) => (
-//         <div className="flex items-center space-x-2">
-//           <IconButton onClick={handlePageChange} disabled={currentPage === 0}>
-//             <FirstPageIcon />
-//           </IconButton>
-//           <IconButton
-//             onClick={handlePageChange}
-//             disabled={currentPage >= Math.ceil(rowCount / 6) - 1}
-//           >
-//             <LastPageIcon />
-//           </IconButton>
-//         </div>
-//       )}
-//     />
-//   );
-// }
-
-function CustomPagination({
-  currentPage,
-  rowCount,
-  onPageChange,
-}: CustomPaginationProps) {
-  console.log("current page: " + currentPage);
+function CustomPagination(props: Partial<TablePaginationProps>) {
+  const { page, count, onPageChange } = props;
   return (
     <MuiPagination
       color="primary"
-      count={Math.ceil(rowCount / 6)}
-      page={currentPage}
-      onChange={(_, newPage) => {
-        console.log("custom pag: " + newPage);
-        onPageChange(newPage);
+      showFirstButton
+      showLastButton
+      count={count}
+      page={page}
+      onChange={(_: any, newPage: number) => {
+        onPageChange && onPageChange(_, newPage);
       }}
     />
   );
@@ -135,7 +82,6 @@ export const MuiDataGrid = ({
   const router = useRouter();
 
   const changePage = (pageNumber: number) => {
-    console.log(pageNumber);
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     router.push(`${pathname}?${params.toString()}`);
@@ -144,16 +90,6 @@ export const MuiDataGrid = ({
   const paginationModel = {
     pageSize: 6,
     page: currentPage - 1,
-  };
-
-  const handleChangePagination = ({
-    page,
-    pageSize,
-  }: {
-    pageSize: number;
-    page: number;
-  }) => {
-    changePage(page + 1);
   };
 
   const handleSortModelChange = (sortModel: GridSortModel) => {
@@ -178,16 +114,16 @@ export const MuiDataGrid = ({
         paginationMode="server"
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
-        onPaginationModelChange={handleChangePagination}
+        onPaginationModelChange={({ pageSize, page }) => changePage(page + 1)}
         disableColumnFilter
         disableRowSelectionOnClick
         pagination
         slots={{ pagination: CustomPagination }}
         slotProps={{
           pagination: {
-            currentPage,
-            rowCount,
-            onPageChange: changePage,
+            page: currentPage,
+            count: Math.ceil((rowCount || 0) / 6),
+            onPageChange: (_: any, newPage: number) => changePage(newPage),
           },
         }}
         initialState={{
