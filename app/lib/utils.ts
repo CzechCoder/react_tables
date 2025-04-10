@@ -1,5 +1,12 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { InvoicesTable, Revenue } from "./definitions";
+import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx";
+
+import { InvoicesTable, Revenue } from "@/app/lib/definitions";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString("en-US", {

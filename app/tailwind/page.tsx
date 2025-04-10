@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
-import Pagination from "@/app/ui/invoices/pagination";
-import TailwindTable from "@/app/ui/tailwind-table";
+import Pagination from "@/app/components/pagination";
+import TailwindTable from "@/app/components/tailwind-table";
+import Search from "@/app/components/search";
 import { lusitana } from "@/app/ui/fonts";
-import Search from "@/app/ui/search";
 
 export const metadata: Metadata = {
   title: "TailwindCSS",
@@ -34,7 +34,7 @@ export default async function Page(props: {
         <Search placeholder="Search invoices..." />
       </div>
       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <TailwindTable data={invoices} searchParams={searchParams} />
+        <TailwindTable data={invoices} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />

@@ -9,7 +9,6 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
 
 import {
   Table,
@@ -18,12 +17,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/app/components/table";
 import type { InvoicesTable } from "@/app/lib/definitions";
-import { formatCurrency, formatDateToLocal } from "../lib/utils";
-import InvoiceStatus from "../components/invoice-status";
-import { Button } from "@mui/material";
-import { SortIconBtn } from "./sort-icon-btn";
+import { formatCurrency, formatDateToLocal } from "@/app/lib/utils";
+import InvoiceStatus from "@/app/components/invoice-status";
+import { SortIconBtn } from "@/app/components/sort-icon-btn";
 
 interface ShadCnTableProps {
   data: InvoicesTable[];

@@ -3,11 +3,11 @@ import { Metadata } from "next";
 
 import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
 import { InvoicesTableSkeleton } from "@/app/components/skeletons";
-import Pagination from "@/app/ui/invoices/pagination";
+import { ShadCnTable } from "@/app/components/shadcn-table";
+import Pagination from "@/app/components/pagination";
 import { InvoicesTable } from "@/app/lib/definitions";
-import { ShadCnTable } from "@/app/ui/shadcn-table";
+import Search from "@/app/components/search";
 import { lusitana } from "@/app/ui/fonts";
-import Search from "@/app/ui/search";
 
 export const metadata: Metadata = {
   title: "ShadCN",

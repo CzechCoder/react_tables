@@ -4,7 +4,7 @@ import { Roboto } from "next/font/google";
 import { Metadata } from "next";
 
 import SideNav from "@/app/components/sidenav";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 import "@/app/global.css";
 import theme from "@/theme";
 

@@ -5,7 +5,7 @@ import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
 import { InvoicesTableSkeleton } from "@/app/components/skeletons";
 import { MuiDataGrid } from "@/app/components/mui-data-grid";
 import { lusitana } from "@/app/ui/fonts";
-import Search from "@/app/ui/search";
+import Search from "@/app/components/search";
 
 export const metadata: Metadata = {
   title: "Material UI",

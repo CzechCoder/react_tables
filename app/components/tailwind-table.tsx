@@ -1,19 +1,12 @@
-import { UpdateInvoice, DeleteInvoice } from "@/app/ui/invoices/buttons";
 import { formatDateToLocal, formatCurrency } from "@/app/lib/utils";
 import InvoiceStatus from "@/app/components/invoice-status";
 import type { InvoicesTable } from "@/app/lib/definitions";
-import { SortIconBtn } from "./sort-icon-btn";
+import { SortIconBtn } from "@/app/components/sort-icon-btn";
 
 export default async function TailwindTable({
   data,
-  searchParams,
 }: {
   data: InvoicesTable[];
-  searchParams?: {
-    query?: string;
-    page?: string;
-    sort?: string;
-  };
 }) {
   return (
     <div className="mt-6 flow-root">
@@ -40,10 +33,6 @@ export default async function TailwindTable({
                       {formatCurrency(invoice.amount)}
                     </p>
                     <p>{formatDateToLocal(invoice.date)}</p>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={invoice.id} />
-                    <DeleteInvoice id={invoice.id} />
                   </div>
                 </div>
               </div>
