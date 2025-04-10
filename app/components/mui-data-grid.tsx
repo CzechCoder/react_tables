@@ -1,16 +1,15 @@
 "use client";
 
-import * as React from "react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { DataGrid, GridColDef, GridSortModel } from "@mui/x-data-grid";
+import { usePathname, useSearchParams } from "next/navigation";
+import MuiPagination from "@mui/material/Pagination";
+import { TablePaginationProps } from "@mui/material";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
-import MuiPagination from "@mui/material/Pagination";
 
 import type { InvoicesTable } from "@/app/lib/definitions";
+import InvoiceStatus from "@/app/components/invoice-status";
 import { formatCurrency } from "@/app/lib/utils";
-import InvoiceStatus from "@/app/ui/invoices/status";
-import { TablePaginationProps } from "@mui/material";
 
 const columns: GridColDef<InvoicesTable>[] = [
   {
@@ -53,7 +52,7 @@ const columns: GridColDef<InvoicesTable>[] = [
   },
 ];
 
-function CustomPagination(props: Partial<TablePaginationProps>) {
+const CustomPagination = (props: Partial<TablePaginationProps>) => {
   const { page, count, onPageChange } = props;
   return (
     <MuiPagination
@@ -67,7 +66,7 @@ function CustomPagination(props: Partial<TablePaginationProps>) {
       }}
     />
   );
-}
+};
 
 export const MuiDataGrid = ({
   data,

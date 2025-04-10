@@ -1,5 +1,6 @@
 import Link from "next/link";
-import NavLinks from "@/app/ui/dashboard/nav-links";
+
+import NavLinks from "@/app/components/nav-links";
 import { lusitana } from "@/app/ui/fonts";
 
 export default function SideNav() {

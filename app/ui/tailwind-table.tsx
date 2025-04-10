@@ -1,6 +1,6 @@
 import { UpdateInvoice, DeleteInvoice } from "@/app/ui/invoices/buttons";
 import { formatDateToLocal, formatCurrency } from "@/app/lib/utils";
-import InvoiceStatus from "@/app/ui/invoices/status";
+import InvoiceStatus from "@/app/components/invoice-status";
 import type { InvoicesTable } from "@/app/lib/definitions";
 import { SortIconBtn } from "./sort-icon-btn";
 

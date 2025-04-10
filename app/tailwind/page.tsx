@@ -1,4 +1,4 @@
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
+import { InvoicesTableSkeleton } from "@/app/components/skeletons";
 import { Suspense } from "react";
 import { Metadata } from "next";
 

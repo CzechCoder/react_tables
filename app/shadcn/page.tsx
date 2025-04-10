@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
+import { InvoicesTableSkeleton } from "@/app/components/skeletons";
 import Pagination from "@/app/ui/invoices/pagination";
 import { InvoicesTable } from "@/app/lib/definitions";
 import { ShadCnTable } from "@/app/ui/shadcn-table";

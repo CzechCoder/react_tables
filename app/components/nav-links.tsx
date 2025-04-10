@@ -1,22 +1,20 @@
 "use client";
 
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from "@heroicons/react/24/outline";
-import clsx from "clsx";
-import Link from "next/link";
+import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import clsx from "clsx";
 
 const links = [
-  { name: "Material UI", href: "/", icon: HomeIcon },
+  { name: "Material UI", href: "/", icon: VerticalSplitIcon },
   {
     name: "TailwindCSS",
     href: "/tailwind",
-    icon: DocumentDuplicateIcon,
+    icon: ViewListIcon,
   },
-  { name: "ShadCN", href: "/shadcn", icon: UserGroupIcon },
+  { name: "ShadCN", href: "/shadcn", icon: ViewModuleIcon },
 ];
 
 export default function NavLinks() {

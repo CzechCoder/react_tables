@@ -1,12 +1,12 @@
-import "@/app/ui/global.css";
-import { inter } from "@/app/ui/fonts";
-import { Metadata } from "next";
-import SideNav from "./ui/dashboard/sidenav";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "../theme";
+import { Roboto } from "next/font/google";
+import { Metadata } from "next";
+
+import SideNav from "@/app/components/sidenav";
 import { cn } from "@/lib/utils";
+import "@/app/global.css";
+import theme from "@/theme";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

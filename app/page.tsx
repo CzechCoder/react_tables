@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { fetchFilteredInvoices, fetchInvoicesPages } from "@/app/lib/data";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
-import { MuiDataGrid } from "@/app/ui/mui-data-grid";
+import { InvoicesTableSkeleton } from "@/app/components/skeletons";
+import { MuiDataGrid } from "@/app/components/mui-data-grid";
 import { lusitana } from "@/app/ui/fonts";
 import Search from "@/app/ui/search";
 

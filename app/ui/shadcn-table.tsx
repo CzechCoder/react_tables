@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/table";
 import type { InvoicesTable } from "@/app/lib/definitions";
 import { formatCurrency, formatDateToLocal } from "../lib/utils";
-import InvoiceStatus from "./invoices/status";
+import InvoiceStatus from "../components/invoice-status";
 import { Button } from "@mui/material";
 import { SortIconBtn } from "./sort-icon-btn";
 
